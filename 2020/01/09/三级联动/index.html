@@ -5,16 +5,22 @@
   
 
   
-  <title>RHO BLOG</title>
+  <title>三级联动 | RHO BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="所看，所学，所做">
-<meta property="og:type" content="website">
-<meta property="og:title" content="RHO BLOG">
-<meta property="og:url" content="https://rho666.github.io/my-blog/index.html">
+  <meta name="description" content="封装原生Ajax请求数据完成三级联动使用node.js创建服务器,引用了express框架（express设置路由是真的方便），其中有用到art-template模板引擎（其实不用感觉代码量也不多，感觉像这种小玩意不需要使用到，当然我觉得现在练练，倒是肯定有能用到的时候） 上代码123456789101112131415161718192021222324252627282930313233343">
+<meta property="og:type" content="article">
+<meta property="og:title" content="三级联动">
+<meta property="og:url" content="https://rho666.github.io/my-blog/2020/01/09/%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/index.html">
 <meta property="og:site_name" content="RHO BLOG">
-<meta property="og:description" content="所看，所学，所做">
+<meta property="og:description" content="封装原生Ajax请求数据完成三级联动使用node.js创建服务器,引用了express框架（express设置路由是真的方便），其中有用到art-template模板引擎（其实不用感觉代码量也不多，感觉像这种小玩意不需要使用到，当然我觉得现在练练，倒是肯定有能用到的时候） 上代码123456789101112131415161718192021222324252627282930313233343">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-01-09T23:33:33.000Z">
+<meta property="article:modified_time" content="2020-01-09T16:02:15.819Z">
 <meta property="article:author" content="rho">
+<meta property="article:tag" content="js">
+<meta property="article:tag" content="ajax">
+<meta property="article:tag" content="node">
+<meta property="article:tag" content="html">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/my-blog/atom.xml" title="RHO BLOG" type="application/atom+xml">
@@ -68,9 +74,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-三级联动" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-三级联动" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/my-blog/2020/01/09/%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/" class="article-date">
   <time datetime="2020-01-09T23:33:33.000Z" itemprop="datePublished">2020-01-09</time>
@@ -87,8 +91,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/my-blog/2020/01/09/%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/">三级联动</a>
+    <h1 class="article-title" itemprop="name">
+      三级联动
     </h1>
   
 
@@ -120,60 +124,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/my-blog/2020/01/09/hello-world/" class="article-date">
-  <time datetime="2020-01-09T16:02:15.819Z" itemprop="datePublished">2020-01-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/my-blog/2020/01/09/hello-world/">Hello World</a>
-    </h1>
+    <a href="/my-blog/2020/01/09/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://rho666.github.io/my-blog/2020/01/09/hello-world/" data-id="ck56x70g700004zhp3wbe2p0h" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
