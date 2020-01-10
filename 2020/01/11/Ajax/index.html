@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/my-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/my-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/my-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/my-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/my-blog/css/main.css">
+
+
+<link rel="stylesheet" href="/my-blog/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://rho666.github.io/my-blog').hostname,
+    root: '/my-blog/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="同步与异步同步意味着  客户端提出了一个请求后，在回应之前只能等待 异步意味着 客户端提出了一个请求后，还可以继续提交其他请求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax">
+<meta property="og:url" content="https://rho666.github.io/my-blog/2020/01/11/Ajax/index.html">
+<meta property="og:site_name" content="RHO BLOG">
+<meta property="og:description" content="同步与异步同步意味着  客户端提出了一个请求后，在回应之前只能等待 异步意味着 客户端提出了一个请求后，还可以继续提交其他请求">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-01-11T00:24:43.000Z">
+<meta property="article:modified_time" content="2020-01-10T16:30:28.919Z">
+<meta property="article:author" content="rho">
+<meta property="article:tag" content="ajax">
+<meta property="article:tag" content="node.js">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://rho666.github.io/my-blog/2020/01/11/Ajax/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Ajax | RHO BLOG</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/my-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RHO BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">rho blog</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/my-blog/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/my-blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rho666.github.io/my-blog/2020/01/11/Ajax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/my-blog/images/avatar.gif">
+      <meta itemprop="name" content="rho">
+      <meta itemprop="description" content="所看，所学，所做">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RHO BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ajax
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-11 00:24:43" itemprop="dateCreated datePublished" datetime="2020-01-11T00:24:43+00:00">2020-01-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-10 16:30:28" itemprop="dateModified" datetime="2020-01-10T16:30:28+00:00">2020-01-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/my-blog/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h2><p>同步意味着  客户端提出了一个请求后，在回应之前只能等待</p>
+<p>异步意味着 客户端提出了一个请求后，还可以继续提交其他请求</p>
+<a id="more"></a>
+
+
+<blockquote>
+<p>举个例子： 服务员把客人点的菜单交给厨师，厨师把菜做完后，服务员在端给客人，期间服务员一直在厨房等待厨师把菜做完——这就是同步；服务员把客人点的菜单交给厨师后，继续干自己的事情，比如将其他客人的菜单也提交给厨师，等厨师做好菜后，再端给下单的客人 —— 这就是异步</p>
+</blockquote>
+<p>​        </p>
+<h2 id="GET请求方式"><a href="#GET请求方式" class="headerlink" title="GET请求方式"></a>GET请求方式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xhr.open(<span class="string">'get'</span>, <span class="string">'http:/baidu.com?name=zhangsan&amp;age=12'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="POST-请求方式"><a href="#POST-请求方式" class="headerlink" title="POST 请求方式"></a>POST 请求方式</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// post请求必须要设置</span></span><br><span class="line">xhr.setRequestHeader(<span class="string">'content-Type'</span>,<span class="string">'application/x-www-form-urlencoded'</span>) </span><br><span class="line">xhr.send(<span class="string">'name=zhangsan&amp;age=20'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="解决一个低版本ie浏览器的缓存问题"><a href="#解决一个低版本ie浏览器的缓存问题" class="headerlink" title="解决一个低版本ie浏览器的缓存问题"></a>解决一个低版本ie浏览器的缓存问题</h3><blockquote>
+<p>我们只需要时在请求地址上加入一个参数，是这个参数的值每次都不一样就行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xhr.open(&#39;get&#39;,&#39;http:&#x2F;&#x2F;localhost:3000&#x2F;cache?t&#x3D;&#39;+Math.random())</span><br></pre></td></tr></table></figure>
+
+<p>Math.random() —&gt;随机获取[0,1)之间的小数</p>
+</blockquote>
+<h2 id="封装一个Ajax"><a href="#封装一个Ajax" class="headerlink" title="封装一个Ajax"></a>封装一个Ajax</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 如果没传入数据的话就使用默认数据</span></span><br><span class="line">	<span class="keyword">const</span> defaults = &#123;</span><br><span class="line">		type: <span class="string">'get'</span>, <span class="comment">// 默认为get</span></span><br><span class="line">		url: <span class="string">''</span>,</span><br><span class="line">		data: &#123;&#125;,</span><br><span class="line">		header: &#123;</span><br><span class="line">			<span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span>,</span><br><span class="line">		&#125;,</span><br><span class="line">		success(data) &#123;&#125;,</span><br><span class="line">		error(err,xhr) &#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// Object.assign方法，options有值则替换defaults</span></span><br><span class="line">	<span class="built_in">Object</span>.assign(defaults, options);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 创建XMLHttpRequest()对象</span></span><br><span class="line">	<span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">	<span class="keyword">let</span> params = <span class="string">''</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 如果时get请求，遍历data， 把数据拼装成 name=zhang&amp;age=14 这种形式</span></span><br><span class="line">	<span class="keyword">if</span>(defaults.type === <span class="string">'get'</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> attr <span class="keyword">in</span> defaults.data) &#123;</span><br><span class="line">			params += attr + <span class="string">'='</span> + defaults.data[attr] + <span class="string">'&amp;'</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 把最后的那个 &amp; 剪切掉，重新赋值给params</span></span><br><span class="line">		params = params.substring(<span class="number">0</span>, params.length - <span class="number">1</span>);</span><br><span class="line">		<span class="comment">// 拼装get请求的url</span></span><br><span class="line">		defaults.url = defaults.url + <span class="string">'?'</span> + params;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 提交方式</span></span><br><span class="line">	xhr.open(defaults.type, defaults.url);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 如果时post请求的话还需要加 xhr.setRequestHeader()</span></span><br><span class="line">	<span class="keyword">if</span>(defaults.type == <span class="string">'post'</span>) &#123;</span><br><span class="line">		<span class="keyword">let</span> contentType = defaults.header[<span class="string">'Content-Type'</span>];</span><br><span class="line">		xhr.setRequestHeader(<span class="string">'Content-Type'</span>, contentType);</span><br><span class="line">		<span class="comment">// 如果时json数据的话，需要将数据转换</span></span><br><span class="line">		<span class="keyword">if</span>(contentType === <span class="string">'application/json'</span>) &#123;</span><br><span class="line">			params = <span class="built_in">JSON</span>.stringify(defaults.data)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// post与get 的请求体不同， get在url上，post在send()上</span></span><br><span class="line">		xhr.send(params);</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// 发送请求</span></span><br><span class="line">		xhr.send(); </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 返回数据在这里处理</span></span><br><span class="line">	xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">let</span> responseText = xhr.responseText</span><br><span class="line">		<span class="keyword">let</span> contentType = xhr.getResponseHeader(<span class="string">'Content-Type'</span>);</span><br><span class="line">		<span class="comment">// 如果时json数据，就将其转换</span></span><br><span class="line">		<span class="keyword">if</span>(contentType.includes(<span class="string">'application/json'</span>)) &#123;</span><br><span class="line">			responseText = <span class="built_in">JSON</span>.parse(responseText);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//判断是否请求成功</span></span><br><span class="line">		<span class="keyword">if</span>(xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">			<span class="comment">// 请求回调success函数</span></span><br><span class="line">			defaults.success(responseText)</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 错误回调error函数</span></span><br><span class="line">			defaults.error(responseText,xhr)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FormData-对象"><a href="#FormData-对象" class="headerlink" title="FormData()对象"></a>FormData()对象</h2><p><strong><code>FormData</code></strong> 接口提供了一种表示表单数据的键值对的构造方式，经过它的数据可以使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/send" target="_blank" rel="noopener"><code>XMLHttpRequest.send()</code></a> 方法送出，本接口和此方法都相当简单直接。如果送出时的编码类型被设为 <code>&quot;multipart/form-data&quot;</code>，它会使用和表单一样的格式。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/append" target="_blank" rel="noopener"><code>FormData.append()</code></a></p>
+<p>向 <code>FormData</code> 中添加新的属性值，<code>FormData</code> 对应的属性值存在也不会覆盖原值，而是新增一个值，如果属性不存在则新增一项属性值。</p>
+</li>
+<li><p><code>FormData.delete()</code></p>
+<p>从 FormData 对象里面删除一个键值对。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/entries" target="_blank" rel="noopener"><code>FormData.entries()</code></a></p>
+<p>返回一个包含所有键值对的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols" target="_blank" rel="noopener"><code>iterator</code></a>对象。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/get" target="_blank" rel="noopener"><code>FormData.get(&#39;key&#39;)</code></a></p>
+<p><code>返回在 FormData</code> 对象中与给定键关联的第一个值。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/getAll" target="_blank" rel="noopener"><code>FormData.getAll()</code></a></p>
+<p>返回一个包含 <code>FormData</code> 对象中与给定键关联的所有值的数组。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/has" target="_blank" rel="noopener"><code>FormData.has()</code></a></p>
+<p><code>返回一个布尔值表明 FormData</code> 对象是否包含某些键。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/keys" target="_blank" rel="noopener"><code>FormData.keys()</code></a></p>
+<p>返回一个包含所有键的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols" target="_blank" rel="noopener"><code>iterator</code></a>对象。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/set" target="_blank" rel="noopener"><code>FormData.set(&#39;key&#39;, &#39;value&#39;)</code></a></p>
+<p>给 <code>FormData</code> 设置属性值，如果<code>FormData</code> 对应的属性值存在则覆盖原值，否则新增一项属性值。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/values" target="_blank" rel="noopener"><code>FormData.values()</code></a></p>
+<p>返回一个包含所有值的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols" target="_blank" rel="noopener"><code>iterator</code></a>对象。</p>
+</li>
+</ul>
+<p>如下代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">'form'</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">'username'</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">'pwd'</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">'提交'</span> <span class="attr">id</span>=<span class="string">'btn'</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> form = <span class="built_in">document</span>.getElementById(<span class="string">'form'</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'btn'</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> content = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'p'</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(content)</span></span><br><span class="line"><span class="actionscript">	<span class="comment">// 监听按钮的点击，上传表单</span></span></span><br><span class="line"><span class="actionscript">    btn.addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">//创建一个FormData对象，并且传入表单</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> formdata = <span class="keyword">new</span> FormData(form);</span></span><br><span class="line">      </span><br><span class="line">      /*</span><br><span class="line"><span class="actionscript">      	<span class="keyword">get</span>(<span class="string">'key'</span>) 获取表单对象属性的值</span></span><br><span class="line"><span class="actionscript">      	<span class="keyword">set</span>(<span class="string">'key'</span>, <span class="string">'value'</span>) 设置表单对象属性的值</span></span><br><span class="line">      */</span><br><span class="line">      </span><br><span class="line"><span class="actionscript">	  <span class="comment">// 获取表单对象属性的值</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(formdata.get(<span class="string">'username'</span>));</span></span><br><span class="line">      </span><br><span class="line"><span class="actionscript">	  <span class="comment">// 如果设置的表单属性存在，将会覆盖属性原有的值</span></span></span><br><span class="line"><span class="actionscript">      formdata.set(<span class="string">'username'</span>, <span class="string">'username'</span>);</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 如果设置的表单属性不存在，将会创建这个表单属性</span></span></span><br><span class="line"><span class="actionscript">      formdata.set(<span class="string">'age'</span>, <span class="number">18</span>);</span></span><br><span class="line">    </span><br><span class="line"><span class="actionscript">      <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      xhr.open(<span class="string">'post'</span>, <span class="string">'http://localhost:3000/formdata'</span>)</span></span><br><span class="line"></span><br><span class="line">      xhr.send(formdata);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      xhr.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line">        if(xhr.status === 200) &#123;</span><br><span class="line"><span class="javascript">          <span class="keyword">let</span> cnt = <span class="built_in">JSON</span>.parse(xhr.responseText);</span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(cnt)</span></span><br><span class="line">          if(cnt.username.length === 0) &#123;</span><br><span class="line"><span class="actionscript">            content.innerText = <span class="string">'无用户名'</span>;</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">return</span></span></span><br><span class="line">          &#125;</span><br><span class="line">          if(cnt.pwd.length === 0) &#123;</span><br><span class="line"><span class="actionscript">            content.innerText = <span class="string">'请输入密码'</span>;</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">return</span> </span></span><br><span class="line">          &#125;</span><br><span class="line"><span class="actionscript">          content.innerText= cnt.username + <span class="string">'用户您好!, 是否确认密码'</span>+cnt.pwd</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>从写一遍服务器逻辑</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入express框架，用于创建服务器等</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="comment">// 引入path模块</span></span><br><span class="line"><span class="keyword">const</span> path - <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="comment">// 引入第三方formidable模块，用于解析表单数据，很好用！！</span></span><br><span class="line"><span class="keyword">const</span> formidable = <span class="built_in">require</span>(<span class="string">'formidable'</span>)</span><br><span class="line"><span class="comment">// 创建服务器</span></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"><span class="comment">// 设置请求静态资源路径,在根目录下手动创建public文件夹</span></span><br><span class="line">app.use(express.static(path.join(__dirname, <span class="string">'public'</span>)));</span><br><span class="line"><span class="comment">// 监听3000端口</span></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'请访问127.0.0.1:3000'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置路由</span></span><br><span class="line">app.post(<span class="string">'/formdata'</span>, (req, res) =&gt; &#123;</span><br><span class="line">	<span class="comment">// 创建formidable对象</span></span><br><span class="line">	<span class="keyword">let</span> form = formidable.IncommingForm();</span><br><span class="line">	<span class="comment">// 解析表单,须传入req</span></span><br><span class="line">	<span class="comment">// err时错误数据， fields是普通文本数据，files是文件数据 如图片等</span></span><br><span class="line">	form.parse(req, (err, fields, files) =&gt; &#123;</span><br><span class="line">		<span class="comment">// 这里只需要文本数据,直接发送回去</span></span><br><span class="line">		res.send(fields)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>直接在markdown手打，代码没测试，可能有错误，但调式一下就ok！！</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/my-blog/tags/ajax/" rel="tag"># ajax</a>
+              <a href="/my-blog/tags/node-js/" rel="tag"># node.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/my-blog/2020/01/10/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#同步与异步"><span class="nav-number">1.</span> <span class="nav-text">同步与异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET请求方式"><span class="nav-number">2.</span> <span class="nav-text">GET请求方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST-请求方式"><span class="nav-number">3.</span> <span class="nav-text">POST 请求方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决一个低版本ie浏览器的缓存问题"><span class="nav-number">3.1.</span> <span class="nav-text">解决一个低版本ie浏览器的缓存问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装一个Ajax"><span class="nav-number">4.</span> <span class="nav-text">封装一个Ajax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FormData-对象"><span class="nav-number">5.</span> <span class="nav-text">FormData()对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">5.1.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">rho</p>
+  <div class="site-description" itemprop="description">所看，所学，所做</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/my-blog/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">rho</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/my-blog/lib/anime.min.js"></script>
+  <script src="/my-blog/lib/velocity/velocity.min.js"></script>
+  <script src="/my-blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/my-blog/js/utils.js"></script>
+
+<script src="/my-blog/js/motion.js"></script>
+
+
+<script src="/my-blog/js/schemes/pisces.js"></script>
+
+
+<script src="/my-blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
