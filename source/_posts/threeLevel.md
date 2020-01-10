@@ -4,7 +4,7 @@ date: 2020-01-09 23:33:33
 tags:
 - js
 - ajax
-- node
+- node.js
 - html
 categories:
 - web前端
